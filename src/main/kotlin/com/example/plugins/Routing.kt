@@ -14,14 +14,5 @@ fun Application.configureRouting() {
         get("/") {
             call.respond(FreeMarkerContent("homePageContent.ftl", model = null))
         }
-
-        get("/searchUsers") {
-            call.respondRedirect("userDashboard")
-        }
-
-        get("/newUser") {
-            call.respond(FreeMarkerContent("newUser.ftl", model = null))
-        }
-
     }
 }

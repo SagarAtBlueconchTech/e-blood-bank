@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>W3.CSS Template</title>
+    <title>UST E-Blood Bank</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -93,7 +93,11 @@
             <img src="https://www.w3schools.com/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
         </div>
         <div class="w3-col s8 w3-bar">
-            <span>Welcome, <strong>Mike</strong></span><br>
+            <#if requestUrl?contains('/user/')>
+                <span><strong>User Dashboard</strong></span><br>
+            <#elseif requestUrl?contains('/hospital/')>
+                <span><strong>Hospital/Blood-bank Dashboard</strong></span><br>
+            </#if>
             <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
             <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
             <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
@@ -105,9 +109,13 @@
     </div>
     <div class="w3-bar-block">
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-        <a href="/userDashboard" class="w3-bar-item w3-button w3-padding w3-blue "><i class="fa fa-users fa-fw"></i>  Search Donor</a>
-        <a href="/newUser" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  My Donor Info</a>
-        <a href="/searchBank" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  Search Blood Bank</a>
+        <#if requestUrl?contains('/user/')>
+        <a href="/user/dashboard" class="w3-bar-item w3-button w3-padding "><i class="fa fa-users fa-fw"></i>  Search Donor</a>
+        <a href="/user/newUser" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  My Donor Info</a>
+        <a href="/user/searchBank" class="w3-bar-item w3-button w3-padding"><i class="fa fa-eye fa-fw"></i>  Search Blood Bank</a>
+        <#elseif requestUrl?contains('/hospital/')>
+        <a href="/hospital/newHospital" class="w3-bar-item w3-button w3-padding "><i class="fa fa-users fa-fw"></i>  Save Hospital/Blood-bank details</a>
+        </#if>
     </div>
 </nav>
 
@@ -174,8 +182,8 @@
     <hr>
 
     <!-- Footer -->
-    <footer class="w3-container w3-padding-16 w3-light-blue">
-        <h4>FOOTER</h4>
+    <footer class="w3-container w3-padding-16 w3-light-grey">
+<#--        <h4>UST E-Blood Bank</h4>-->
     </footer>
 
     <!-- End page content -->

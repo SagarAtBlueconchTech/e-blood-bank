@@ -22,7 +22,7 @@
     <div id="login" class="w3-row-padding w3-padding-64 w3-container">
         <div class="w3-content">
             <h2>Search Blood Donors</h2>
-            <form action="/searchUsers" method="post">
+            <form action="/user/searchUsers" method="post">
                 <div class="container">
                     <input type="text" placeholder="City" name="city">
 
@@ -33,6 +33,8 @@
                         <option value="B negative">B negative</option>
                         <option value="AB positive">AB positive</option>
                         <option value="AB negative">AB negative</option>
+                        <option value="O positive">O positive</option>
+                        <option value="O negative">O negative</option>
                     </select>
 
                     <button type="submit" class="registerbtn">Search</button>

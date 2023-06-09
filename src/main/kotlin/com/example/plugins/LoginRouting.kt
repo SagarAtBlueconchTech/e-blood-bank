@@ -4,6 +4,7 @@ import LoginService
 import LoginUser
 import io.ktor.http.*
 import io.ktor.server.application.*
+import io.ktor.server.freemarker.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
@@ -37,9 +38,9 @@ fun Application.configureLoginRouting() {
             val loginUser = LoginUser(null, email, password, userType)
             val id = loginService.create(loginUser)
             if(userType.equals("user", true)) {
-                call.respondRedirect("userDashboard")
+                call.respondRedirect("/user/dashboard")
             } else {
-                call.respondRedirect("hospitalDashboard")
+                call.respondRedirect("/hospital/newHospital")
             }
         }
 
@@ -66,10 +67,17 @@ fun Application.configureLoginRouting() {
             println(">>>>>>>>> $email | $password | $userType")
             val loginUser = loginService.validateCredentials(email, password, userType)
             if (loginUser != null) {
+                if (loginUser.userType.equals("user", true)) {
+                    call.respondRedirect("/user/dashboard")
+                } else if (loginUser.userType.equals("hospital", true)) {
+                    call.respondRedirect("/hospital/newHospital")
+                } else {
+                    call.respond(FreeMarkerContent("homePageContent.ftl", model = null))
+                }
                 //call.respond(HttpStatusCode.OK, loginUser)
-                call.respondRedirect("userDashboard")
+
             } else {
-                call.respond(HttpStatusCode.NotFound, "No login user found")
+                call.respond(FreeMarkerContent("homePageContent.ftl", model = null))
             }
         }
 

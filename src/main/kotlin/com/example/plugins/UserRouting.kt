@@ -19,6 +19,8 @@ fun Application.configureDatabases() {
         )
     val userService = UserService(database)
     routing {
+
+        //-------------------- REST API ---------------------
         // Create user
         post("/users") {
             val user = call.receive<User>()
@@ -70,32 +72,39 @@ fun Application.configureDatabases() {
             }
         }
 
-        get("/userDashboard") {
+
+
+
+        //-------------------------- Calls from front-end -------------------------
+
+        get("/user/dashboard") {
             val userList = userService.readAll()
 
             if (userList.isEmpty()) {
                 call.respond(HttpStatusCode.NotFound, "No matching donor found")
             } else {
                 //call.respond(HttpStatusCode.OK, userList)
-                call.respond(FreeMarkerContent("userList.ftl", mapOf("users" to userList)))
+                call.respond(FreeMarkerContent("userList.ftl",
+                    mapOf("users" to userList, "requestUrl" to call.request.uri)))
             }
         }
 
-        post("/searchUsers") {
+        post("/user/searchUsers") {
             val formParameters = call.receiveParameters()
             val city = formParameters.getOrFail("city")
             val bloodGroup = formParameters.getOrFail("bloodGroup")
 
             val userList  = userService.searchUsersByBloodGroupAndCity(bloodGroup, city)
-            if (userList.isEmpty()) {
-                call.respond(HttpStatusCode.NotFound, "No matching donor found")
-            } else {
-                call.respond(FreeMarkerContent("userList.ftl", mapOf("users" to userList)))
-            }
+            call.respond(FreeMarkerContent("userList.ftl",
+                mapOf("users" to userList, "requestUrl" to call.request.uri)))
         }
 
 
-        post("/saveUpdateUser") {
+        get("/user/newUser") {
+            call.respond(FreeMarkerContent("newUser.ftl", mapOf("requestUrl" to call.request.uri)))
+        }
+
+        post("/user/saveUpdateUser") {
             val formParameters = call.receiveParameters()
             val name = formParameters.getOrFail("name")
             val email = formParameters.getOrFail("email")
@@ -107,7 +116,7 @@ fun Application.configureDatabases() {
 
             val newUser = User(name, email, mobile, age, bloodGroup, address, loginUserId = 0)
             val id = userService.create(newUser)
-            call.respond(FreeMarkerContent("newUser.ftl", "isSuccess" to true))
+            call.respond(FreeMarkerContent("newUser.ftl", mapOf("requestUrl" to call.request.uri)))
         }
 
     }

@@ -21,15 +21,15 @@
 
     <div id="newUser" class="w3-row-padding w3-padding-64 w3-container">
         <div class="w3-content">
-            <h2>Your Donor Details</h2>
-            <form action="/user/saveUpdateUser" method="post">
+            <h2>Save Hospital/Blood-bank Details</h2>
+            <form action="/hospital/saveUpdateHospital" method="post">
                 <div class="container">
-                    <input type="text" placeholder="Full Name" name="name">
+                    <input type="text" placeholder="Hospital/Blood-bank name" name="name">
                     <input type="text" placeholder="Email" name="email">
-                    <input type="text" placeholder="Age" name="age">
                     <input type="text" placeholder="Address" name="address">
-                    <input type="text" placeholder="Mobile number" name="mobile">
-                    <select id="bloodGroup" name="bloodGroup">
+                    <input type="text" placeholder="Phone" name="phone">
+                    <label for="userType"><b>Select available blood</b></label>
+                    <select id="bloodGroup" name="bloodGroup" multiple>
                         <option value="A positive">A positive</option>
                         <option value="A negative">A negative</option>
                         <option value="B positive">B positive</option>

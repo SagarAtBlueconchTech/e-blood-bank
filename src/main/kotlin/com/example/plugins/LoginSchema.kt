@@ -20,13 +20,14 @@ class LoginService(private val database: Database) {
             SchemaUtils.create(LoginUsers)
 
             val loginUserList = arrayListOf<LoginUser>()
-            loginUserList.add(LoginUser(1,"test1@test.com", "test", "user"))
+            loginUserList.add(LoginUser(1,"user@test.com", "test", "user"))
             loginUserList.add(LoginUser(2,"test2@test.com", "test", "user"))
             loginUserList.add(LoginUser(3,"test3@test.com", "test", "user"))
             loginUserList.add(LoginUser(4,"test4@test.com", "test", "user"))
             loginUserList.add(LoginUser(5,"test5@test.com", "test", "user"))
             loginUserList.add(LoginUser(6,"test6@test.com", "test", "user"))
             loginUserList.add(LoginUser(7,"test7@test.com", "test", "user"))
+            loginUserList.add(LoginUser(8,"hospital@test.com", "test", "hospital"))
 
 
             LoginUsers.batchInsert(loginUserList) {
